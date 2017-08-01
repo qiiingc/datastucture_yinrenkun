@@ -1,0 +1,12 @@
+1 22 wang
+3 22 liu
+2 23 zhang
+12 23 shen
+5 24 wei
+4 22 chen
+6 21 wlc
+7 24 li
+9 26 wyz
+11 24 nve
+10 27 su
+8 22 weiting

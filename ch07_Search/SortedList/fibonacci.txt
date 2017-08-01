@@ -1,0 +1,31 @@
+Fibonacci查找和插补查找
+折半查找的变形—— Fibonacci查找和插补查找  
+
+与折半查找法类似，Fibonacci查找和插补查找都是将数据查找范围切成两半，直至能够确定具体的位置或所查找不在范围之内。但是它们在效率和应用范围上也有一定的区别 
+
+折半查找运用除法运算来减少查找范围，而Fibonacci查找法则利用了Fibonacci数列建立相应的树状结构，在缩小范围的过程中仅用到加减法。在计算机处理运算指令中，加减运算的效率高于乘除运算，所以Fibonacci查找法的效率也会优于折半查找。 
+
+Fibonacci查找的具体过程： 
+
+   (1)假设数据共有n笔，则先在Fibonacci数列中找到最大的a使满足F(a)<=n+1，然后令root=F(a-1)，distance_1=F(a-2)，distance_2=F(a-3)。  
+
+   (2)如果欲查找的数据x<data[root-1]，表示x出现在data[root-1]之前，此时令root=root-distance_2，temp=distance_1，distance_1=distance_2，distance_2=temp-distance_2。  
+
+   (3)如果x>data[root-1]，表示x出现在data[root-1]之后，此时令root=root+distance_2，distance_1=distance_1-distance_2，distance_2=distance_2-distance_1。  
+
+   (4)如果x=data[root-1]，表示已查到数据。  
+
+    重复(2)(3)(4)，直到找到相应数据，或直到distance_2为负则表示x不在数据范围内。  
+
+    插补查找也和折半查找有着类似之处，但它的特色在于借助了比例的概念，与欲查找数据所比较的并不是数据的中间项，而是以内插法按照比例所选择的一项，具体来说就是令middle不再按(left+right)/2取值，而是令它等于left+(x-data[left])*(right-left)/(data[right]-data[left])，其余过程则于折半查找相同，这样一来，就能够在查找平均分布的数据时取得很高的效率，时间复杂度可达到O(log log n)，比折半查找更优。然而对于不平均分布的数据，其效率却并不好，甚至在最坏的状况下时间复杂度达到了O(n)，与线性查找相同。  
+
+   为了弥补插补查找的这个缺点，还有一种改良型的插补查找法，被称为加强型插补查找法。是取 
+
+    num1=left+gap  
+
+    num2=right-gap 
+
+    num3=left+(x-data[left])*(right-left)/(data[right]-data[left])  
+
+    三数中的中间数作为middle值，其中gap是right-left+1的平方根，这样就对不平均分布的数据做出了一定的修正。加强型插补查找法对于平均分布的数据，时间复杂度仍是O(log log n)，而对不平均分布的数据则为O((logn)^2)，虽然还不如折半查找法，但是对比于插补查找在最差状况时的O(n),已经取得了很好的改善。 
+
